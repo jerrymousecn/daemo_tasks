@@ -1,6 +1,8 @@
 package cn.jerry.tools.tasks;
 
+import java.util.Collections;
 import java.util.Date;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.UUID;
@@ -17,7 +19,7 @@ public class TaskManager {
 	private final int TASK_NOT_FOUND = -1;
 	private TaskCleaner taskCleaner = new TaskCleaner(taskMap);
 	private Timer timer = new Timer();
-	private final int CLEAN_PERIOD = 2000;  //in milliseconds
+	private final int CLEAN_PERIOD = 200000;  //in milliseconds
 
 	private String getUniqueID() {
 		return UUID.randomUUID().toString();
@@ -47,18 +49,27 @@ public class TaskManager {
 		return taskID;
 	}
 
-	public synchronized void cancelTask(String taskID) {
+	public synchronized void stopTask(String taskID) {
 		DaemonTask task = getTask(taskID);
 		if (task != null) {
 			task.setToStopFlag(true);
-			if (task.isTerminated()) {
-				taskMap.remove(task);
+		}
+	}
+	public synchronized void delFinishedTask(String taskID) {
+		DaemonTask task = getTask(taskID);
+		if (task != null) {
+			if (task.getIsTerminated()) {
+				taskMap.remove(taskID);
 			}
 		}
 	}
 
 	public DaemonTask getTask(String taskID) {
 		return taskMap.get(taskID);
+	}
+	public Map<String, DaemonTask> getTasksForView() {
+		Map<String, DaemonTask> map = Collections.unmodifiableMap(taskMap);
+		return map;
 	}
 
 	public int getProgress(String taskID) {
@@ -84,7 +95,7 @@ class TaskCleaner extends TimerTask {
 		for (Entry<String, DaemonTask> entry : taskMap.entrySet()) {
 			String taskID = entry.getKey();
 			DaemonTask task = entry.getValue();
-			if (task.isTerminated()) {
+			if (task.getIsTerminated()) {
 				Date terminatedTime = task.getTerminatedTime();
 				Date now = new Date();
 

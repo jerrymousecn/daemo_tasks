@@ -1,6 +1,2 @@
-<%@page import="cn.jerry.tools.tasks.TaskManager"%>
-<%
-String taskID = request.getParameter("taskid");
-TaskManager taskManager = TaskManager.getInstance();
-%>
-<%=taskManager.getProgress(taskID)%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<s:property value="task_progress"/>

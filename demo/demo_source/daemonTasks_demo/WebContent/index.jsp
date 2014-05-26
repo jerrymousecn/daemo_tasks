@@ -1,8 +1,10 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <html>
 <head>
 <title>Insert title here</title>
 </head>
 <body>
-<a href="addTask.jsp">add Task</a>
+<s:a href="addTask.jsp">Add Task</s:a><br/>
+<s:a href="listTasks">View All Tasks</s:a><br/>
 </body>
 </html>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<constant name="struts.objectFactory" value="spring" />
+
+	<constant name="struts.action.extension" value=","></constant>
+
+	<package name="defaultActions" namespace="/" extends="struts-default">
+		<action name="addTask" class="taskAction" method="addTask">
+			<result name="success">/getTaskResult.jsp</result>
+		</action>
+		<action name="getTaskProgress" class="taskAction" method="getTaskProgress">
+			<result name="success">/getTaskProgress.jsp</result>
+		</action>
+		<action name="listTasks" class="taskAction" method="listTasks">
+			<result name="success">/listTasks.jsp</result>
+		</action>
+		<action name="delTask" class="taskAction" method="delTask">
+			<result name="success" type="chain">listTasks</result>
+		</action>
+		<action name="stopTask" class="taskAction" method="stopTask">
+			<result name="success" type="chain">listTasks</result>
+		</action>
+	</package>
+
+</struts>

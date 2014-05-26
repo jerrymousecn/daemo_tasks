@@ -7,7 +7,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
 	
-	<bean name="addTaskAction" class="cn.jerry.tools.tasks.action.TaskAction">
+	<bean name="taskAction" class="cn.jerry.tools.tasks.action.TaskAction">
 	</bean>
 
 </beans>

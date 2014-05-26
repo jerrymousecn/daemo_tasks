@@ -7,7 +7,7 @@ public abstract class DaemonTask implements Runnable {
 	private String taskName;
 	private String taskDesc;
 	private boolean isStartedFlag = false;;
-	private boolean isTerminatedFlag = false;;
+	private boolean isTerminated = false;;
 	private int progress;
 	private Date startTime;
 	private Date terminatedTime;
@@ -22,7 +22,7 @@ public abstract class DaemonTask implements Runnable {
 	public void run() {
 		this.isStartedFlag = true;
 		this.execute();
-		this.isTerminatedFlag = true;
+		this.isTerminated = true;
 		this.terminatedTime = new Date();
 	}
 
@@ -38,10 +38,9 @@ public abstract class DaemonTask implements Runnable {
 		return isStartedFlag;
 	}
 
-	public boolean isTerminated() {
-		return isTerminatedFlag;
+	public boolean getIsTerminated() {
+		return isTerminated;
 	}
-
 	public void setToStopFlag(boolean toStopFlag) {
 		this.toStopFlag = toStopFlag;
 	}
